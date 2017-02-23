@@ -1,0 +1,14 @@
+type: object
+properties:
+    startDistance:
+        description: 距离范围(米)开始值
+        type: number
+    endDistance:
+        description: 距离范围(米)结束值
+        type: number
+    pricePerUnit:
+        description: 单位里程费(元/里程刻度)
+        type: number
+    unit: 
+        description: 里程刻度(米)
+        type: number

@@ -1,0 +1,21 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        description: 骑手Id 
+        required: true
+        j-required: true
+put:
+    operationId: 修改投诉
+    parameters:
+        -   in: body
+            name: body
+            schema:
+                $ref: '#/definitions/Complain'
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Complain'

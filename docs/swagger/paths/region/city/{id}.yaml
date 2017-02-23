@@ -1,0 +1,29 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        description: 城市Id 
+        required: true
+        j-required: true
+get:
+    operationId: 获取当前城市所有地区
+    responses:
+        200:
+            schema:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        id:
+                            type: integer
+                        cityId:
+                            type: integer
+                        frenchisee:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                phone:
+                                    type: string
+                                    m-pool: 0123456789
+                                    m-length: 11

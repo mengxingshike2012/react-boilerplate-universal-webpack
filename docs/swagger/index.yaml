@@ -1,0 +1,174 @@
+---
+swagger: '2.0'
+
+############################################################
+#          基础信息                                         #
+############################################################
+info:
+    version: 1.0.0
+    title: 加盟商API
+    description: |
+        
+        __所有时间戳为微秒(ms)__
+
+
+        > 所有请求结果都包含如下字段(接口定义中不再声明)
+
+        ```
+        {
+            success: boolean,
+            errorCode: integer,
+            errorMessage: string,
+            data,
+        }
+        ```
+
+        >当`success`为`true`时, `errorCode`和`errorMessage`为空.
+        >当`success`为`false`间, `data`为空
+
+basePath: /api
+schemes:
+    - http
+produces:
+    - application/json
+consumes:
+    - application/json
+
+############################################################
+#          字段定义                                         #
+############################################################
+
+parameters:
+    regionId:
+        name: regionId
+        in: query
+        description: 区域Id
+        type: integer 
+    cityId:
+        name: cityId
+        in: query
+        description: 城市id
+        type: integer
+    paginator.size:
+        name: paginator.size
+        in: query
+        description: 分页大小
+        type: integer
+        required: true
+        j-required: true
+        j-min: 0
+        j-max: 10
+    paginator.page:
+        name: paginator.page
+        in: query
+        description: 分页页面index(从0开始)
+        type: integer
+        required: true
+        j-required: true
+        j-min: 0
+    account.name:
+        name: name
+        in: query
+        description: 账号姓名
+        type: string
+    account.phone:
+        name: phone 
+        in: query
+        description: 账号姓名
+        type: string
+    account.role:
+        name: role
+        in: query
+        description: 账号角色
+        type: integer
+    rider.id:
+        name: id
+        in: query
+        description: 骑手id
+        type: integer
+    rider.name:
+        name: name
+        in: query
+        description: 骑手姓名
+        type: string
+    rider.phone:
+        name: phone
+        in: query
+        description: 骑手手机号
+        type: string
+    rider.position:
+        name: position
+        in: query
+        description: 全职/兼职
+        type: integer
+    rider.workStatus:
+        name: workStatus
+        description: 工作状态
+        in: query
+        type: integer
+    rider.accountStatus:
+        name: accountStatus
+        description: 账号状态
+        in: query
+        type: integer
+    shop.id:
+        name: id 
+        description: 商家编号
+        in: query
+        type: integer
+    shop.name:
+        name: name
+        description: 商家名称
+        in: query
+        type: string
+    shop.address:
+        name: address
+        description: 商家地址
+        in: query
+        type: string
+    shop.accountPhone:
+        name: accountPhone
+        description: 商家注册手机号
+        in: query
+        type: string
+    shop.auditStatus:
+        name: auditStatus
+        description: 商家审核状态
+        in: query
+        type: integer
+    shop.accountStatus:
+        name: accountStatus
+        description: 账号状态
+        in: query
+        type: integer
+    complain.id:
+        name: id
+        description: 投诉id
+        in: query
+        type: integer
+    complain.createdAt:
+        name: createdAt
+        description: 投诉事件
+        in: query
+        type: integer
+    complain.shop:
+        name: shop
+        description: 发起商家
+        type: string 
+        in: query
+    complain.rider:
+        name: rider
+        description: 被投诉骑手
+        type: string
+        in: query
+    complain.status:
+        name: status
+        in: query
+        type: integer
+        description: 处理状态
+    complain.order:
+        name: order
+        in: query
+        type: integer
+        description: 关联订单
+

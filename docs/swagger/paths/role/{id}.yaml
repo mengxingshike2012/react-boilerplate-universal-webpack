@@ -1,0 +1,16 @@
+parameters:
+    -   name: id 
+        in: path 
+        description: 角色id
+        type: integer
+        required: true
+        j-required: true
+get:
+    operationId: 将员工移出组
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Role'

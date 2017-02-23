@@ -1,0 +1,28 @@
+parameters:
+    -   name: id 
+        in: query
+        description: 角色id
+        type: string 
+    -   name: name 
+        in: query
+        description: 角色名称
+        type: string
+    -   name: description
+        in: query
+        description: 描述
+        type: string
+    - $ref: '#/parameters/paginator.size'
+    - $ref: '#/parameters/paginator.page'
+get:
+    operationId: 获取角色
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    paging:
+                        $ref: '#/definitions/Paginator'
+                    data:
+                        type: array
+                        items:
+                            $ref: '#/definitions/Role'

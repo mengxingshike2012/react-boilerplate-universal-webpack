@@ -1,0 +1,63 @@
+.operation-bar {
+  height: 48px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+.released {
+  display: flex;
+  justify-content: center;
+  color: #71D8FD;
+
+  >span:nth-child(1) {
+    margin-right: 16px;
+  }
+}
+
+.notReleased {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #71D8FD;
+  padding-left: 24px;
+
+  .op1 {
+    display: flex;
+    justify-content: flex-start;
+    flex: 3;
+    >span:nth-child(1) {
+      margin-right: 16px;
+    }
+    >span:nth-child(2) {
+      margin-right: 16px;
+    }
+    .delete {
+      color: red;
+      margin-right: 16px;
+    }
+  }
+  .op2 {
+    display: flex;
+    flex: 2;
+    align-items: center;
+    .state {
+      color: #ccc;
+      margin-right: 16px;
+    }
+    .cancel {
+      color: red;
+      border-color: red;
+      &:hover {
+        color: red;
+        border-color: red;
+      }
+    }
+    .confirm {
+      color: #71D8FD;
+      border-color: #71D8FD;
+      &:hover {
+        color: #71D8FD;
+        border-color: #71D8FD;
+      }
+    }
+  }
+}

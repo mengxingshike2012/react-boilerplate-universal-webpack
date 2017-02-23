@@ -1,0 +1,30 @@
+parameters:
+    -   in: path 
+        name: id
+        type: integer
+        description: 账号id, body中的id会被忽略
+        requried: true
+        j-required: true
+delete:
+    operationId: 加盟商删除子账号
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: boolean
+put:
+    operationId: 加盟商修改子账号
+    parameters:
+        -   in: body
+            name: body
+            schema:
+                $ref: '#/definitions/SubAccount'
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/SubAccount'

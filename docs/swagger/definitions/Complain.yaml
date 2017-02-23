@@ -1,0 +1,24 @@
+type: object
+properties:
+    id:
+        type: integer
+    order:
+        $ref: '#/definitions/Order'
+    shop:   
+        $ref: '#/definitions/Shop'
+    rider:
+        $ref: '#/definitions/Rider'
+    comment:
+        type: string
+    createdAt:
+        type: integer
+    reason:
+        type: string
+    status:
+        type: integer
+        enum:
+            - 0
+            - 1
+            - 2
+    result:
+        type: string

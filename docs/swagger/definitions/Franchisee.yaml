@@ -1,0 +1,37 @@
+type: object
+properties:
+    id:
+        type: number
+    phone:
+        type: string
+    name:
+        type: string
+    identityNumber:
+        description: 身份证号
+        type: string
+    email:
+        type: string
+    companyName:
+        type: string
+    address:
+        type: string
+    account:
+        type: object
+        properties:
+            number:
+                type: string
+            name:
+                type: string
+            bank:
+                type: string
+    signedDate:
+        type: number
+    effectiveDate:
+        type: number
+    region:
+        type: array
+        items:
+            type: string
+            
+
+

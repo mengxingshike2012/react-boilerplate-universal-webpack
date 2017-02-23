@@ -1,0 +1,26 @@
+ :global {
+    .ant-select-dropdown {
+        margin-top: 4px;
+        border-radius: 2px;
+    }
+    .ant-select-dropdown-menu-item:hover,
+    .ant-select-dropdown-menu-item-active,
+    .ant-select-dropdown-menu-item-selected {
+        background-color:rgba(254, 117, 26, 0.05);
+        color: #fe751a;
+    }
+    .ant-input, .ant-select-selection {
+        border-radius: 2px;
+        border: 1px solid #e5e5e5;
+        width: 100%;
+        min-width: 0px;
+        &:focus, &:active {
+            box-shadow: 0 0 0 1px #fe751a;
+        }
+    }
+    .ant-input.ant-cascader-input,
+    .ant-cascader-picker {
+        width: 100%;
+        min-width: 0px;
+    }
+}

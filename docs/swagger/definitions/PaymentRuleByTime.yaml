@@ -1,0 +1,31 @@
+type: object
+properties:
+    startTime:
+        description: 时段范围('00:00')开始
+        type: string 
+    endTime:
+        description: 时段范围('00:00')结束
+        type: string 
+    price:
+        description: 时段金额
+        type: number
+    tag:
+        description: 时段标签(宵夜, 午高峰, 晚高峰)
+        type: integer
+        enum:
+            - 0
+            - 1
+            - 2
+    day:
+        description: 适用日期(星期几)
+        type: array
+        items:
+            type: integer
+            enum:
+                - 1
+                - 2
+                - 3
+                - 4
+                - 5
+                - 6
+                - 7

@@ -1,0 +1,28 @@
+parameters:
+  - name: regionId 
+    type: integer
+    in: path
+    description: 区域Id, 为空则获取通用规则
+    j-required: true
+
+post:
+    operationId: 修改加盟商/区域付费规则_基础费用
+    parameters:
+      - name: body
+        in: body
+        schema:
+            type: object
+            properties:
+                base:
+                    type: number
+                    j-min: 0
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: object
+                        properties:
+                            base:
+                                type: number

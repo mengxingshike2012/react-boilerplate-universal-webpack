@@ -1,0 +1,59 @@
+.mainnav-container {
+	position: absolute;
+	margin-top: 50px;
+	top: 0;
+	bottom: 0;
+	z-index: 4;
+	min-height: 100%;
+	background: #fff;
+	:global .menu-item-vertical {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	:global .menu-box-vertical {
+		padding-left: 20px !important;
+	}
+	:global .ant-menu-submenu-title {
+		padding-left: 24px;
+	}
+	:global .menu-vertical .ant-menu-submenu-inline > .ant-menu-submenu-title:after{
+		content: ''
+	}
+	:global .menu-vertical .ant-menu-submenu-inline {
+	}
+	:global .ant-menu-inline {
+		overflow: hidden;
+		min-width: 65px;
+	}
+	:global .sub-menu-name-vertical {
+		width: 0;
+		overflow: hidden;
+		display: inline-flex;
+	}
+	:global .ant-menu-inline .ant-menu-item {
+		border-left: 4px solid #ffffff;
+	}
+	:global .ant-menu-inline .ant-menu-selected{
+		border-right: 0;
+		border-left: 4px solid #fe751a;
+	}
+	:global .ant-menu-inline .ant-menu-item-selected {
+		border-right: 0;
+		border-left: 4px solid #fe751a;
+	}
+	:global .ant-menu-vertical > .ant-menu-item,
+	:global .ant-menu-inline > .ant-menu-item,
+	:global .ant-menu-item-group-list > .ant-menu-item,
+	:global .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title,
+	:global .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title,
+	:global .ant-menu-item-group-list > .ant-menu-submenu > .ant-menu-submenu-title {
+		font-size: 14px;
+	}
+	:global .ant-menu-item .anticon,
+	:global .ant-menu-submenu-title .anticon {
+		min-width: 16px;
+	}
+	:global .ant-menu-submenu-inline > .ant-menu-submenu-title:after {
+		font-size: 16px;
+	}
+}

@@ -1,0 +1,58 @@
+parameters:
+    - $ref: '#/parameters/cityId'
+    - $ref: '#/parameters/regionId'
+    -   name: id 
+        in: query
+        description: 订单号
+        type: integer
+    -   name: orderStatus
+        in: query
+        description: 订单状态
+        type: integer
+    -   name: placeTime
+        in: query
+        description: 下单时间
+        type: integer
+    -   name: finishTime
+        in: query
+        description: 送达时间
+        type: integer
+    -   name: shopId
+        in: query
+        description: 商家Id
+        type: integer
+    -   name: shopName
+        in: query
+        description: 商家名称
+        type: string
+    -   name: riderId
+        in: query
+        description: 骑手Id
+        type: integer
+    -   name: riderName
+        in: query
+        description: 骑手名称
+        type: string
+    -   name: shippingAddress
+        in: query
+        description: 收货地址
+        type: string
+    -   name: status
+        in: query
+        description: 订单状态(用逗号隔开的数字, 例如 1,2)
+        type: string
+    - $ref: '#/parameters/paginator.size'
+    - $ref: '#/parameters/paginator.page'
+get:
+    operationId: 获取订单接口
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    paging:
+                        $ref: '#/definitions/Paginator'
+                    data:
+                        type: array
+                        items:
+                            $ref: '#/definitions/Order'

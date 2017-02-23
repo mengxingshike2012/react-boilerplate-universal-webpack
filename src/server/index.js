@@ -6,12 +6,15 @@ import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import sfs from 'session-file-store'
 import csrf from 'csurf'
+import flash from 'connect-flash'
 import favicon from 'serve-favicon'
 import path from 'path'
 
 import config from '../../config'
-import { ServerRenderRouter, ApiRouter } from './routes'
+import { APIRouter, ServerRenderRouter } from './routes'
 import { loggerMiddleware, traceMiddleware } from './middlewares'
+// import { goLogin } from './helpers/director'
+import logger from './utils/logger'
 
 const app = new Express()
 const server = new Server(app)
@@ -30,7 +33,8 @@ app.use(session({
   },
 }))
 app.use(cookieParser())
-app.use(bodyParser.urlencoded({ limit: '4mb' }))
+app.use(bodyParser.urlencoded({ extended: true, limit: '4mb' }))
+app.use(flash())
 app.use(traceMiddleware)
 app.use(loggerMiddleware)
 // csrf check
@@ -40,8 +44,8 @@ app.use((err, req, res, next) => {
   // console.log('req.path', req.path)
   if (err.code !== 'EBADCSRFTOKEN') {
     next(err)
-  } else if (req.path === '/alipay/notify') {
-    next('route')
+  } else if (req.path === '/auth/requestyzm') {
+    next()
   } else {
     res.status(403).json({
       status: 0,
@@ -58,16 +62,19 @@ app.engine('html', ejs.renderFile)
 app.set('views', path.join(__dirname, 'views'))
 
 /* router middlerwares */
-app.use('/api', ApiRouter)
-app.use('/', ServerRenderRouter)
+// app.use('/', casCheck)
+// app.use('/auth', AuthRouter)
+app.use('/api', APIRouter)
+app.use(ServerRenderRouter)
+// app.use(notLoginedFilter(goLogin), ServerRenderRouter)
 
 if (config.port) {
   server.listen(config.port, (err) => {
     if (err) {
-      console.error(err);
+      logger.err(err);
     }
-    console.info('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port);
+    logger.debug('==> 💻  Open http://%s:%s in a browser to view the app.', config.host, config.port);
   });
 } else {
-  console.error('==>     ERROR: No PORT environment variable has been specified');
+  logger.debug('==>     ERROR: No PORT environment variable has been specified');
 }

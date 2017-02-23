@@ -1,0 +1,14 @@
+type: object
+properties:
+    id:
+        type: integer 
+    shop:
+        $ref: '#/definitions/Shop'
+    rider:
+        $ref: '#/definitions/Rider' 
+    shipping:
+        $ref: '#/definitions/Shipping'
+    charge:
+        $ref: '#/definitions/Charge'
+    info:
+        $ref: '#/definitions/OrderInfo'

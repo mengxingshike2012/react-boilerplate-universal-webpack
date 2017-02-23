@@ -6,17 +6,17 @@ import App from '../common/app'
 
 const root = document.getElementById('content');
 
-if (process.env.NODE_ENV !== 'production') {
-  window.React = React; // enable debugger
-
-  if (!root
-    || !root.firstChild
-    || !root.firstChild.attributes
-    || !root.firstChild.attributes['data-react-checksum']) {
-    console.warn(`Server-side React render was discarded.
-        Make sure that your initial render does not contain any client-side code.`);
-  }
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   window.React = React; // enable debugger
+//
+//   if (!root
+//     || !root.firstChild
+//     || !root.firstChild.attributes
+//     || !root.firstChild.attributes['data-react-checksum']) {
+//     console.warn(`Server-side React render was discarded.
+//         Make sure that your initial render does not contain any client-side code.`);
+//   }
+// }
 
 const render = (component) => {
   /* global ENABLE_DEVTOOLS */

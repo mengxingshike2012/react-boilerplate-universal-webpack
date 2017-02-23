@@ -14,6 +14,8 @@ const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('.
 const babelrc = fs.readFileSync('./src/client/.babelrc');
 let babelrcObject = {};
 
+const AntTheme = require(path.resolve(__dirname, '../package.json'))['ant-theme'];
+
 try {
     babelrcObject = JSON.parse(babelrc);
 } catch (err) {
@@ -51,7 +53,24 @@ module.exports = {
         rules: [
             { test: /\.jsx?$/, exclude: /node_modules/, use: ['babel-loader?' + JSON.stringify(babelLoaderQuery)] },
             { test: /\.css$/, use: ['style-loader', 'css-loader', 'postcss-loader']},
-            { test: /\.less$/, use: ['style-loader', 'css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]','postcss-loader', 'less-loader?outputStyle=expanded&sourceMap']},
+            {
+                //test:  /antd\/\/[a-z\/\_]+\.less$/,
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    'css-loader?importLoaders=2&sourceMap',
+                    'postcss-loader',
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            outputStyle: 'expanded',
+                            sourceMap: true,
+                            modifyVars: AntTheme,
+                        }
+                    },
+                ]
+            },
+            //{ test: /\.less$/, use: ['style-loader', 'css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]','postcss-loader', 'less-loader?outputStyle=expanded&sourceMap']},
             { test: /\.scss$/, use: ['style-loader', 'css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]','postcss-loader', 'sass-loader?outputStyle=expanded&sourceMap']},
             { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
             { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
@@ -69,8 +88,8 @@ module.exports = {
         extensions: ['.json', '.js', '.jsx'],
         alias: {
             components: path.resolve(__dirname, '..') + '/src/common/components',
+            apis: path.resolve(__dirname, '..') + '/src/common/apis',
             actions: path.resolve(__dirname, '..') + '/src/common/actions',
-            api: path.resolve(__dirname, '..') + '/src/common/api',
             reducers: path.resolve(__dirname, '..') + '/src/common/reducers',
             utils: path.resolve(__dirname, '..') + '/src/common/utils',
             constants: path.resolve(__dirname, '..') + '/src/common/constants',

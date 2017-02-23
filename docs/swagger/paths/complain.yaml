@@ -1,0 +1,36 @@
+get:
+    parameters:
+        - $ref: '#/parameters/regionId'
+        - $ref: '#/parameters/complain.createdAt'
+        - $ref: '#/parameters/complain.shop'
+        - $ref: '#/parameters/complain.rider'
+        - $ref: '#/parameters/complain.order'
+        - $ref: '#/parameters/complain.status'
+        - $ref: '#/parameters/paginator.size'
+        - $ref: '#/parameters/paginator.page'
+    operationId: 加盟商获取投诉列表
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    paging:
+                        $ref: '#/definitions/Paginator'
+                    data:
+                        type: array
+                        items:
+                            $ref: '#/definitions/Complain'
+post:
+    operationId: 新增投诉
+    parameters:
+        -   in: body
+            name: body
+            schema:
+                $ref: '#/definitions/Complain'
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Complain'

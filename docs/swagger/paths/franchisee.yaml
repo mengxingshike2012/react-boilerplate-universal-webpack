@@ -1,0 +1,47 @@
+get:
+    operationId: 获取加盟商
+    parameters:
+        - $ref: '#/parameters/cityId'
+        - $ref: '#/parameters/regionId'
+        - name: name
+          type: string
+          description: 姓名
+          in: query
+        - name: phone
+          type: string
+          description: 登录手机号
+          in: query
+        - name: status
+          type: integer
+          description: 状态
+          in: query
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    paging:
+                        $ref: '#/definitions/Paginator'
+                    data:
+                        type: array
+                        items:
+                            $ref: '#/definitions/Franchisee'
+
+post:
+    operationId: 增加加盟商
+    parameters:
+        -   in: body
+            name: body
+            schema:
+                $ref: '#/definitions/Franchisee'
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    paging:
+                        $ref: '#/definitions/Paginator'
+                    data:
+                        type: array
+                        items:
+                            $ref: '#/definitions/Franchisee'

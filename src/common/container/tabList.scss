@@ -1,0 +1,28 @@
+.tablist {
+	:global .ant-tabs-bar  {
+		border-bottom: 0;
+		margin-bottom: 0;
+	}
+	:global .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-nav-container {
+		height: 44px;
+	}
+	:global .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+		padding: 15px 49px 14px 15px;
+		font-family: PingFangSC;
+		background-color: #fafafa;
+		line-height: 1;
+	}
+	:global .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
+		background: #fff;
+	}
+	:global .ant-tabs.ant-tabs-editable-card > .ant-tabs-bar .ant-tabs-tab:not(.ant-tabs-tab-active):hover {
+		padding: 15px 49px 14px 15px;
+	}
+	:global .anticon-close {
+		position: absolute;
+		right: 15px;
+		top: 15px;
+    width: 16px !important;
+    font-size: 16px !important;
+	}
+}

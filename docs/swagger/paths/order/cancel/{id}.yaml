@@ -1,0 +1,23 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        j-required: true
+        description: 订单Id 
+    -   name: body
+        in: body
+        schema:
+            type: object
+            properties:
+                reason:
+                    type: string
+                    j-required: true
+post:
+    operationId: 取消订单
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Order'

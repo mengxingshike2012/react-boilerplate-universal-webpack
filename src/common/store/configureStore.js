@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux'
 import createLogger from 'redux-logger'
-// import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware from 'redux-thunk'
 import { router, reduxRouterMiddleware } from '../middlewares'
 import rootReducer from '../redux/reducers'
 
@@ -11,17 +11,20 @@ export default function configure(initialState) {
 
   const createStoreWithMiddleware = applyMiddleware(
     reduxRouterMiddleware,
-    // thunkMiddleware,
+    thunkMiddleware,
     createLogger(),
     router,
   )(create)
 
   const store = createStoreWithMiddleware(rootReducer, initialState)
 
-  // if (module.hot) {
-  //   module.hot.accept('../redux/reducers', () => {
-  //     store.replaceReducer(rootReducer)
-  //   })
-  // }
+  if (module.hot) {
+    module.hot.accept('../redux/reducers', () => {
+      // eslint-disable-next-line global-require
+      const nextReducer = require('../redux/reducers').default
+      store.replaceReducer(nextReducer)
+    })
+  }
   return store
 }
+export const store = configure()

@@ -13,6 +13,6 @@ export const initialState = { count: 0 }
 /* ------------- Reducers ------------- */
 export default handleActions({
   'sync test'(state, action) {
-    return { ...state, count: state.count + 2 }
+    return { ...state, count: state.count + 100 }
   },
 }, initialState)

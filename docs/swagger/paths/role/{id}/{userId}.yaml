@@ -1,0 +1,31 @@
+parameters:
+    -   name: id 
+        in: path 
+        description: 角色id
+        type: integer
+        required: true
+        j-required: true
+    -   name: userId
+        in: path
+        description: 员工id
+        type: integer 
+        required: true
+        j-required: true
+post:
+    operationId: 将员工加入组
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Role'
+delete:
+    operationId: 将员工移出组
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Role'

@@ -1,0 +1,24 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        description: 商家Id 
+        required: true
+        j-required: true
+put:
+    operationId: 调整商家余额
+    parameters:
+        -   name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    value:
+                        type: number
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Shop'

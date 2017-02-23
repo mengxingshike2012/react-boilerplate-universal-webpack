@@ -1,0 +1,37 @@
+.selected-items {
+  display: flex;
+  height: 40px;
+}
+
+.main {
+  display: flex;
+}
+.classfication {
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  > div {
+    height: 20px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .selected {
+    background-color: #fff;
+  }
+  .not-selected {
+    background-color: #ccc;
+  }
+}
+.selections {
+  flex: 5;
+  display: flex;
+}
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  > button {
+    margin-right: 8px;
+  }
+}

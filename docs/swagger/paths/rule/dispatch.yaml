@@ -1,0 +1,25 @@
+get:
+    operationId: 获取加盟商/区域调度规则
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/DispatchRule'
+post:
+    operationId: 修改加盟商/区域调度规则
+    parameters:
+      - name: body
+        in: body
+        schema:
+            $ref: '#/definitions/DispatchRule'
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: boolean
+
+

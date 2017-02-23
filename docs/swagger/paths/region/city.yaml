@@ -1,0 +1,60 @@
+get:
+    operationId: 获取招商城市列表
+    parameters:
+        -   $ref: '#/parameters/paginator.size'
+        -   $ref: '#/parameters/paginator.page'
+        -   name: provinceId
+            in: path
+            description: 身份Id
+            type: integer 
+        -   name: hasPublished
+            in: query
+            description: 是否有已发布数据
+            type: boolean
+        -   name: hasUnpublished
+            in: query
+            description: 是否有未发布数据
+            type: boolean
+    responses:
+        200:
+            schema:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        name:
+                            type: string
+                        id:
+                            type: integer
+                        hasPublished:
+                            type: boolean
+                        hasUnpublished:
+                            type: boolean
+                        needToPublish:
+                            type: boolean
+post:
+    operationId: 添加城市
+    parameters:
+        -   name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    id:
+                        type: integer
+                        j-required: true
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    name:
+                        type: string
+                    id:
+                        type: integer
+                    hasPublished:
+                        type: boolean
+                    hasUnpublished:
+                        type: boolean
+                    needToPublish:
+                        type: boolean

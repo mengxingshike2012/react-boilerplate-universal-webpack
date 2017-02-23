@@ -1,0 +1,16 @@
+post:
+    operationId: 启用骑手
+    parameters:
+        -   name: id 
+            type: integer
+            in: path
+            description: 骑手Id 
+            required: true
+            j-required: true
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Rider'

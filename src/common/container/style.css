@@ -1,0 +1,303 @@
+/* CONTAINER */
+/*======================================*/
+#container {
+	min-height: 100vh;
+	height: auto;
+	position: relative;
+	min-width: 290px;
+	overflow: hidden;
+	-webkit-transition: opacity 0.5s linear 1.5s;
+	transition: opacity 0.5s linear 1.5s;
+	background-color: #e7ebee;
+}
+#container.boxed-layout {
+	background-color: #cfd3d6;
+}
+#content-container {
+	position: relative;
+	/*padding-bottom: 100px;*/
+	background-color: #e7ebee;
+}
+#page-content {
+	padding: 5px 20px 0;
+}
+@media (min-width: 768px) {
+	#page-content {
+		padding: 10px 20px 0;
+	}
+}
+@media (min-width: 992px) {
+	#page-content {
+		padding: 20px 25px 0;
+	}
+}
+/* NAVBAR
+/*====================================*/
+#navbar {
+	width: 100%;
+	z-index: 10;
+	background-color: #e7ebee;
+	left: 0;
+	top: 0;
+}
+#navbar-container {
+	box-shadow: 0 2px 0px -1px rgba(0, 0, 0, 0.05);
+}
+.navbar-header {
+	left: 0;
+	position: relative;
+	float: none;
+	background-color: #ffffff;
+}
+.navbar-content {
+	position: relative;
+	left: 0;
+	background-color: #ffffff;
+	padding: 0 8px;
+	box-shadow: inset -4px 0 0 0 #54abd9;
+}
+@media (min-width: 992px) {
+	.navbar-content {
+		padding: 0 13px;
+	}
+}
+/* BRAND LOGO & TEXT
+/*====================================*/
+.navbar-brand {
+	background-color: transparent;
+	color: #ffffff;
+	padding: 0;
+	height: 50px;
+	position: relative;
+	z-index: 2;
+	overflow: hidden;
+	width: 220px;
+}
+.navbar-brand:hover,
+.navbar-brand:focus {
+	color: #ffffff;
+}
+.brand-title,
+.brand-icon {
+	display: block;
+	line-height: 50px;
+}
+.brand-icon {
+	width: 50px;
+	height: 50px;
+	float: left;
+}
+.brand-text {
+	display: block;
+	font-size: 18px;
+	background: url(../images/logo.svg) no-repeat;
+	background-size: 14px 18px;
+	background-position: 0px 16px;
+	padding-left: 20px;
+	height: 50px;
+	font-family: "STYuanti-SC";
+	color: #666666;
+}
+.brand-text.vertical {
+	width: 0;
+	overflow: hidden;
+}
+.brand-title.inline {
+	overflow: hidden;
+}
+/* NAVBAR RESPONSIVE */
+/*======================================*/
+@media (min-width: 768px) {
+	#dropdown-user > .dropdown-toggle img {
+		-webkit-transform: translateY(9px);
+		-ms-transform: translateY(9px);
+		transform: translateY(9px);
+	}
+	#navbar {
+		background-color: transparent;
+	}
+	.navbar-header {
+		float: left;
+		background-color: transparent;
+	}
+	.navbar-header:before {
+		content: '';
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 50px;
+		background-color: #ffffff;
+	}
+	#container.mainnav-out .navbar-header:before {
+		width: 0;
+	}
+	#container.mainnav-in .navbar-header:before {
+		width: 100%;
+	}
+	#navbar-container {
+		background-color: #ffffff;
+	}
+	.navbar-content {
+		margin-left: 220px;
+		background-color: transparent;
+	}
+	.navbar-content.vertical {
+		margin-left: 60px;
+	}
+	#navbar .brand-title {
+		padding: 0 1.5em 0 26px;
+	}
+	#container.mainnav-in .navbar-brand,
+	#container.mainnav-lg .navbar-brand,
+	#container.mainnav-in .brand-title,
+	#container.mainnav-lg .brand-title {
+		width: 220px;
+	}
+	#container.mainnav-in .navbar-brand.vertical,
+	#container.mainnav-lg .navbar-brand.vertical,
+	#container.mainnav-in .brand-title.vertical,
+	#container.mainnav-lg .brand-title.vertical{
+		width: 60px;
+	}
+	#container.mainnav-in .brand-icon,
+	#container.mainnav-sm .brand-icon,
+	#container.mainnav-lg .brand-icon {
+		background-color: transparent;
+	}
+	#container.mainnav-in .brand-title,
+	#container.mainnav-sm .brand-title,
+	#container.mainnav-lg .brand-title {
+		color: #ffffff;
+	}
+	.navbar-middle {
+		position: static;
+	}
+}
+
+/* MAIN NAVIGATION - EXPANDING  */
+/* For large screen */
+/*======================================*/
+@media (min-width: 992px) {
+	#container.mainnav-lg #content-container {
+		padding-left: 220px;
+	}
+	#container.mainnav-lg #content-container.content-container-vertical {
+		padding-left: 60px;
+	}
+}
+/* Expanding with off canvas mode */
+/*======================================*/
+@media (min-width: 768px) and (max-width: 991px) {
+	#container.mainnav-lg #content-container {
+		padding-left: 220px;
+	}
+	#container.mainnav-lg #content-container.content-container-vertical {
+		padding-left: 60px;
+	}
+	#container.mainnav-lg .tgl-menu-btn {
+		right: 220px;
+	}
+}
+/* ANIMATIONS */
+/* -------------------------------------*/
+@media (min-width: 1200px) {
+	.effect .navbar-content,
+	.effect #navbar,
+	.effect #content-container,
+	.effect #aside-container,
+	.effect .navbar-brand,
+	.effect .navbar-content,
+	.effect .navbar-header:before {
+		transition-property: width, padding, left, right;
+		transition-duration: 0.35s;
+	}
+	.effect .navbar-content {
+		-webkit-transition-property: margin-left;
+		transition-property: margin-left;
+	}
+	.easeInOutBack #navbar,
+	.easeInOutBack #content-container,
+	.easeInOutBack #aside-container,
+	.easeInOutBack .navbar-brand,
+	.easeInOutBack .navbar-content,
+	.easeInOutBack .brand-title,
+	.easeInOutBack .ant-menu,
+	.easeInOutBack .navbar-header:before {
+		-webkit-transition-duration: 0.5s;
+		-webkit-transition-timing-function: cubic-bezier(1, -0.28, 0, 1.275);
+		transition-duration: 0.5s;
+		transition-timing-function: cubic-bezier(1, -0.28, 0, 1.275);
+	}
+}
+.ant-menu-inline,
+.ant-menu-vertical {
+	border: 0 none;
+}
+/*!	Animate.css - http://daneden.me/animate - Licensed under the MIT license - http://opensource.org/licenses/MIT -	Copyright (c) 2014 Daniel Eden	*/
+@-webkit-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+.animated {
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+.fadeOut {
+	-webkit-animation-name: fadeOut;
+	animation-name: fadeOut;
+}
+a {
+	text-decoration: none;
+	color: #515151;
+	outline: 0;
+}
+a:hover,
+a:focus {
+	text-decoration: none;
+	color: #444444;
+	outline: 0 !important;
+}
+button,
+button:focus {
+	outline: 0 !important;
+}
+code {
+	background-color: #e7e3f2;
+	color: #ff0000;
+	padding: 2px 7px;
+	border-radius: 2px;
+	font-size: 97%;
+}
+kbd {
+	border-radius: 2px;
+	box-shadow: none;
+}
+label {
+	font-weight: normal;
+}
+legend {
+	padding: 10px;
+	font-size: 18px;
+	font-weight: 600;
+	border-color: #eee;
+}
+mark,
+.mark {
+	background-color: #ffe3a2;
+	color: #563c00;
+	padding: 0.1em;
+}

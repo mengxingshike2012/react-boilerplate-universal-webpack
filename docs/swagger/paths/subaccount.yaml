@@ -1,0 +1,34 @@
+get:
+    parameters:
+        - $ref: '#/parameters/regionId'
+        - $ref: '#/parameters/account.name'
+        - $ref: '#/parameters/account.phone'
+        - $ref: '#/parameters/account.role'
+        - $ref: '#/parameters/paginator.size'
+        - $ref: '#/parameters/paginator.page'
+    operationId: 加盟商获取子账号
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    paging:
+                        $ref: '#/definitions/Paginator'
+                    data:
+                        type: array
+                        items:
+                            $ref: '#/definitions/SubAccount'
+post:
+    operationId: 加盟商新增子账号
+    parameters:
+        -   in: body
+            name: body
+            schema:
+                $ref: '#/definitions/SubAccount'
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/SubAccount'

@@ -1,0 +1,40 @@
+type: object
+properties:
+    dispatch:
+        description: 智能派单
+        type: object
+        properties:
+            enabled:
+                type: boolean
+            value:
+                description: 降价金额
+                type: number
+            throttle:
+                description: 调节值(低, 中, 高)
+                type: integer
+                enum:
+                    - 0
+                    - 1
+                    - 2
+    merge:
+        description: 智能合单
+        type: object
+        properties:
+            enabled:
+                type: boolean
+            value:
+                description: 降价金额
+                type: number
+            throttle:
+                description: 调节值(低, 中, 高)
+                type: integer
+                enum:
+                    - 0
+                    - 1
+                    - 2 
+    riderPick:
+        description: 抢单 
+        type: object
+        properties:
+            enabled:
+                type: boolean

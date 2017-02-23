@@ -1,0 +1,15 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        j-required: true
+        description: 订单Id 
+get:
+    operationId: 获取订单详情
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Order'

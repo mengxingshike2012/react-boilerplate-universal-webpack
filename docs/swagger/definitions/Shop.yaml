@@ -1,0 +1,62 @@
+type: object
+properties:
+    id:
+        type: integer
+    regionId:
+        type: integer
+    name:
+        type: string
+    address:
+        type: string
+    geo:
+        description: 地理位置
+        type: object
+        properties:
+            lat:
+                type: number
+            lng:
+                type: number
+    account:
+        type: object
+        properties:
+            phone:
+                description: 注册手机号
+                type: string
+            registerTime:
+                description: 注册时间
+                type: integer
+    audit:
+        type: object
+        properties:
+            time:
+                description: 审核时间
+                type: integer
+            status:
+                description: 审核状态
+                type: integer
+            pid:
+                description: 身份证
+                type: object
+                properties:
+                    number:
+                        description: 身份证号
+                        type: string
+                    image:
+                        description: 身份证片
+                        type: object
+                        properties:
+                            front:
+                                description: 正面照
+                                type: string
+                            back:
+                                description: 反面照
+                                type: string
+                            hand:
+                                description: 手持照
+                                type: string
+    balance:
+        description: 账户余额
+        type: number
+
+
+

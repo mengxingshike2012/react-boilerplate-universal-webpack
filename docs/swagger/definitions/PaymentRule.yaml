@@ -1,0 +1,15 @@
+type: object
+properties:
+    base:
+        description: 基础收费
+        type: number
+    distance:
+        description: 里程阶梯收费
+        type: array
+        items:
+            $ref: '#/definitions/PaymentRuleByDistance'
+    time:
+        description: 时间阶梯收费
+        type: array
+        items:
+            $ref: '#/definitions/PaymentRuleByTime'

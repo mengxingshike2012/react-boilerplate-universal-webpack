@@ -1,0 +1,2073 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 加盟商API
+  description: |
+
+    __所有时间戳为微秒(ms)__
+
+
+    > 所有请求结果都包含如下字段(接口定义中不再声明)
+
+    ```
+    {
+        success: boolean,
+        errorCode: integer,
+        errorMessage: string,
+        data,
+    }
+    ```
+
+    >当`success`为`true`时, `errorCode`和`errorMessage`为空.
+    >当`success`为`false`间, `data`为空
+basePath: /api
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+parameters:
+  regionId:
+    name: regionId
+    in: query
+    description: 区域Id
+    type: integer
+  cityId:
+    name: cityId
+    in: query
+    description: 城市id
+    type: integer
+  paginator.size:
+    name: paginator.size
+    in: query
+    description: 分页大小
+    type: integer
+    required: true
+  paginator.page:
+    name: paginator.page
+    in: query
+    description: 分页页面index(从0开始)
+    type: integer
+    required: true
+  account.name:
+    name: name
+    in: query
+    description: 账号姓名
+    type: string
+  account.phone:
+    name: phone
+    in: query
+    description: 账号姓名
+    type: string
+  account.role:
+    name: role
+    in: query
+    description: 账号角色
+    type: integer
+  rider.id:
+    name: id
+    in: query
+    description: 骑手id
+    type: integer
+  rider.name:
+    name: name
+    in: query
+    description: 骑手姓名
+    type: string
+  rider.phone:
+    name: phone
+    in: query
+    description: 骑手手机号
+    type: string
+  rider.position:
+    name: position
+    in: query
+    description: 全职/兼职
+    type: integer
+  rider.workStatus:
+    name: workStatus
+    description: 工作状态
+    in: query
+    type: integer
+  rider.accountStatus:
+    name: accountStatus
+    description: 账号状态
+    in: query
+    type: integer
+  shop.id:
+    name: id
+    description: 商家编号
+    in: query
+    type: integer
+  shop.name:
+    name: name
+    description: 商家名称
+    in: query
+    type: string
+  shop.address:
+    name: address
+    description: 商家地址
+    in: query
+    type: string
+  shop.accountPhone:
+    name: accountPhone
+    description: 商家注册手机号
+    in: query
+    type: string
+  shop.auditStatus:
+    name: auditStatus
+    description: 商家审核状态
+    in: query
+    type: integer
+  shop.accountStatus:
+    name: accountStatus
+    description: 账号状态
+    in: query
+    type: integer
+  complain.id:
+    name: id
+    description: 投诉id
+    in: query
+    type: integer
+  complain.createdAt:
+    name: createdAt
+    description: 投诉事件
+    in: query
+    type: integer
+  complain.shop:
+    name: shop
+    description: 发起商家
+    type: string
+    in: query
+  complain.rider:
+    name: rider
+    description: 被投诉骑手
+    type: string
+    in: query
+  complain.status:
+    name: status
+    in: query
+    type: integer
+    description: 处理状态
+  complain.order:
+    name: order
+    in: query
+    type: integer
+    description: 关联订单
+paths:
+  /auth/login:
+    post:
+      operationId: 登陆
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              phone:
+                type: string
+              password:
+                type: string
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/LoginCredential'
+          description: 请求成功
+      summary: 登陆
+  /auth/password:
+    post:
+      operationId: 修改密码
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              password:
+                type: string
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: boolean
+          description: 请求成功
+      summary: 修改密码
+  /auth/reset/code:
+    get:
+      operationId: 验证码
+      parameter:
+        - in: query
+          name: phone
+          type: string
+          requried: true
+          j-required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: boolean
+          description: 请求成功
+      summary: 验证码
+  /auth/reset/password:
+    post:
+      operationId: 重置密码
+      parameter:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              phone:
+                type: string
+              password:
+                type: string
+              code:
+                type: string
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/LoginCredential'
+          description: 请求成功
+      summary: 重置密码
+  '/complain/{id}':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 骑手Id
+        required: true
+        j-required: true
+    put:
+      operationId: 修改投诉
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Complain'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Complain'
+          description: 请求成功
+      summary: 修改投诉
+  /complain:
+    get:
+      parameters:
+        - $ref: '#/parameters/regionId'
+        - $ref: '#/parameters/complain.createdAt'
+        - $ref: '#/parameters/complain.shop'
+        - $ref: '#/parameters/complain.rider'
+        - $ref: '#/parameters/complain.order'
+        - $ref: '#/parameters/complain.status'
+        - $ref: '#/parameters/paginator.size'
+        - $ref: '#/parameters/paginator.page'
+      operationId: 加盟商获取投诉列表
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              paging:
+                $ref: '#/definitions/Paginator'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Complain'
+          description: 请求成功
+      summary: 加盟商获取投诉列表
+    post:
+      operationId: 新增投诉
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Complain'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Complain'
+          description: 请求成功
+      summary: 新增投诉
+  '/franchisee/{id}/start':
+    parameters:
+      - name: id
+        description: 加盟商id
+        in: path
+        required: true
+        j-required: true
+    post:
+      operationId: 启动加盟商
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Franchisee'
+          description: 请求成功
+      summary: 启动加盟商
+  '/franchisee/{id}/stop':
+    parameters:
+      - name: id
+        description: 加盟商id
+        in: path
+        required: true
+        j-required: true
+    post:
+      operationId: 停止加盟商
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Franchisee'
+          description: 请求成功
+      summary: 停止加盟商
+  '/franchisee/{id}':
+    parameters:
+      - name: id
+        description: 加盟商id
+        in: path
+        required: true
+        j-required: true
+    put:
+      operationId: 修改加盟商
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Franchisee'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Franchisee'
+          description: 请求成功
+      summary: 修改加盟商
+  /franchisee:
+    get:
+      operationId: 获取加盟商
+      parameters:
+        - $ref: '#/parameters/cityId'
+        - $ref: '#/parameters/regionId'
+        - name: name
+          type: string
+          description: 姓名
+          in: query
+        - name: phone
+          type: string
+          description: 登录手机号
+          in: query
+        - name: status
+          type: integer
+          description: 状态
+          in: query
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              paging:
+                $ref: '#/definitions/Paginator'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Franchisee'
+          description: 请求成功
+      summary: 获取加盟商
+    post:
+      operationId: 增加加盟商
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Franchisee'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              paging:
+                $ref: '#/definitions/Paginator'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Franchisee'
+          description: 请求成功
+      summary: 增加加盟商
+  /login:
+    post:
+      operationId: 登陆
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+                j-required: true
+              password:
+                type: string
+                j-required: true
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: string
+                m-type: hex
+                m-length: 32
+          description: 请求成功
+      summary: 登陆
+  '/order/cancel/{id}':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        j-required: true
+        description: 订单Id
+      - name: body
+        in: body
+        schema:
+          type: object
+          properties:
+            reason:
+              type: string
+              j-required: true
+    post:
+      operationId: 取消订单
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Order'
+          description: 请求成功
+      summary: 取消订单
+  '/order/redispatch/{id}':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        j-required: true
+        description: 订单Id
+    post:
+      operationId: 重新订单
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Order'
+          description: 请求成功
+      summary: 重新订单
+  '/order/{id}':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        j-required: true
+        description: 订单Id
+    get:
+      operationId: 获取订单详情
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Order'
+          description: 请求成功
+      summary: 获取订单详情
+  /order:
+    parameters:
+      - $ref: '#/parameters/cityId'
+      - $ref: '#/parameters/regionId'
+      - name: id
+        in: query
+        description: 订单号
+        type: integer
+      - name: orderStatus
+        in: query
+        description: 订单状态
+        type: integer
+      - name: placeTime
+        in: query
+        description: 下单时间
+        type: integer
+      - name: finishTime
+        in: query
+        description: 送达时间
+        type: integer
+      - name: shopId
+        in: query
+        description: 商家Id
+        type: integer
+      - name: shopName
+        in: query
+        description: 商家名称
+        type: string
+      - name: riderId
+        in: query
+        description: 骑手Id
+        type: integer
+      - name: riderName
+        in: query
+        description: 骑手名称
+        type: string
+      - name: shippingAddress
+        in: query
+        description: 收货地址
+        type: string
+      - name: status
+        in: query
+        description: '订单状态(用逗号隔开的数字, 例如 1,2)'
+        type: string
+      - $ref: '#/parameters/paginator.size'
+      - $ref: '#/parameters/paginator.page'
+    get:
+      operationId: 获取订单接口
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              paging:
+                $ref: '#/definitions/Paginator'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Order'
+          description: 请求成功
+      summary: 获取订单接口
+  /region/city/list:
+    get:
+      operationId: 获取所有招商城市列表
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                id:
+                  type: integer
+          description: 请求成功
+      summary: 获取所有招商城市列表
+  '/region/city/{id}/publish':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 城市Id
+        required: true
+        j-required: true
+    post:
+      operationId: 发布
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: boolean
+          description: 请求成功
+      summary: 发布
+  '/region/city/{id}/published':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 城市Id
+        required: true
+        j-required: true
+    get:
+      operationId: 获取已发布数据
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RegionData'
+          description: 请求成功
+      summary: 获取已发布数据
+  '/region/city/{id}/unpublish':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 城市Id
+        required: true
+        j-required: true
+    post:
+      operationId: 取消发布
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: boolean
+          description: 请求成功
+      summary: 取消发布
+  '/region/city/{id}/unpublished':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 城市Id
+        required: true
+        j-required: true
+    get:
+      operationId: 获取城市来发布数据
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RegionData'
+          description: 请求成功
+      summary: 获取城市来发布数据
+    delete:
+      operationId: 删除城市待发布数据
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: boolean
+          description: 请求成功
+      summary: 删除城市待发布数据
+    post:
+      operationId: 更新城市未发布地图数据
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RegionData'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RegionData'
+          description: 请求成功
+      summary: 更新城市未发布地图数据
+  '/region/city/{id}':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 城市Id
+        required: true
+        j-required: true
+    get:
+      operationId: 获取当前城市所有地区
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                cityId:
+                  type: integer
+                frenchisee:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    phone:
+                      type: string
+                      m-pool: 0123456789
+                      m-length: 11
+          description: 请求成功
+      summary: 获取当前城市所有地区
+  /region/city:
+    get:
+      operationId: 获取招商城市列表
+      parameters:
+        - $ref: '#/parameters/paginator.size'
+        - $ref: '#/parameters/paginator.page'
+        - name: provinceId
+          in: path
+          description: 身份Id
+          type: integer
+        - name: hasPublished
+          in: query
+          description: 是否有已发布数据
+          type: boolean
+        - name: hasUnpublished
+          in: query
+          description: 是否有未发布数据
+          type: boolean
+      responses:
+        '200':
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                id:
+                  type: integer
+                hasPublished:
+                  type: boolean
+                hasUnpublished:
+                  type: boolean
+                needToPublish:
+                  type: boolean
+          description: 请求成功
+      summary: 获取招商城市列表
+    post:
+      operationId: 添加城市
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                j-required: true
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              id:
+                type: integer
+              hasPublished:
+                type: boolean
+              hasUnpublished:
+                type: boolean
+              needToPublish:
+                type: boolean
+          description: 请求成功
+      summary: 添加城市
+  '/region/{id}':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 区域Id
+        required: true
+        j-required: true
+    get:
+      operationId: 获取区域地图数据
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/RegionData'
+          description: 请求成功
+      summary: 获取区域地图数据
+    post:
+      operationId: 更新区域地图数据
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/RegionData'
+          required: true
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/RegionData'
+          description: 请求成功
+      summary: 更新区域地图数据
+  '/rider/disable/{id}':
+    post:
+      operationId: 禁用骑手
+      parameters:
+        - name: id
+          type: integer
+          in: path
+          description: 骑手Id
+          required: true
+          j-required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Rider'
+          description: 请求成功
+      summary: 禁用骑手
+  '/rider/dispatch/{id}':
+    post:
+      operationId: 禁用骑手
+      parameters:
+        - name: id
+          type: integer
+          in: path
+          description: 骑手Id
+          required: true
+          j-required: true
+        - name: body
+          in: body
+          schema:
+            type: array
+            items:
+              type: integer
+              description: 订单id
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Rider'
+          description: 请求成功
+      summary: 禁用骑手
+  '/rider/enable/{id}':
+    post:
+      operationId: 启用骑手
+      parameters:
+        - name: id
+          type: integer
+          in: path
+          description: 骑手Id
+          required: true
+          j-required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Rider'
+          description: 请求成功
+      summary: 启用骑手
+  '/rider/{id}':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 骑手Id
+    get:
+      operationId: 获取骑手详情
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Rider'
+          description: 请求成功
+      summary: 获取骑手详情
+    delete:
+      operationId: 删除骑手
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: boolean
+          description: 请求成功
+      summary: 删除骑手
+    put:
+      operationId: 修改骑手
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Rider'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Rider'
+          description: 请求成功
+      summary: 修改骑手
+  /rider:
+    get:
+      parameters:
+        - $ref: '#/parameters/regionId'
+        - $ref: '#/parameters/rider.id'
+        - $ref: '#/parameters/rider.name'
+        - $ref: '#/parameters/rider.phone'
+        - $ref: '#/parameters/rider.position'
+        - $ref: '#/parameters/rider.workStatus'
+        - $ref: '#/parameters/rider.accountStatus'
+        - $ref: '#/parameters/paginator.size'
+        - $ref: '#/parameters/paginator.page'
+      operationId: 加盟商获取骑手列表
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              paging:
+                $ref: '#/definitions/Paginator'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Rider'
+          description: 请求成功
+      summary: 加盟商获取骑手列表
+    post:
+      operationId: 新增骑手
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Rider'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Rider'
+          description: 请求成功
+      summary: 新增骑手
+  '/role/{id}/{userId}':
+    parameters:
+      - name: id
+        in: path
+        description: 角色id
+        type: integer
+        required: true
+        j-required: true
+      - name: userId
+        in: path
+        description: 员工id
+        type: integer
+        required: true
+        j-required: true
+    post:
+      operationId: 将员工加入组
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Role'
+          description: 请求成功
+      summary: 将员工加入组
+    delete:
+      operationId: 将员工移出组
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Role'
+          description: 请求成功
+      summary: 将员工移出组
+  '/role/{id}':
+    parameters:
+      - name: id
+        in: path
+        description: 角色id
+        type: integer
+        required: true
+        j-required: true
+    get:
+      operationId: 将员工移出组
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Role'
+          description: 请求成功
+      summary: 将员工移出组
+  /role:
+    parameters:
+      - name: id
+        in: query
+        description: 角色id
+        type: string
+      - name: name
+        in: query
+        description: 角色名称
+        type: string
+      - name: description
+        in: query
+        description: 描述
+        type: string
+      - $ref: '#/parameters/paginator.size'
+      - $ref: '#/parameters/paginator.page'
+    get:
+      operationId: 获取角色
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              paging:
+                $ref: '#/definitions/Paginator'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Role'
+          description: 请求成功
+      summary: 获取角色
+  /rule/dispatch:
+    get:
+      operationId: 获取加盟商/区域调度规则
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/DispatchRule'
+          description: 请求成功
+      summary: 获取加盟商/区域调度规则
+    post:
+      operationId: 修改加盟商/区域调度规则
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/DispatchRule'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: boolean
+          description: 请求成功
+      summary: 修改加盟商/区域调度规则
+  '/rule/{regionId}/charge/base':
+    parameters:
+      - name: regionId
+        type: integer
+        in: path
+        description: '区域Id, 为空则获取通用规则'
+        j-required: true
+    post:
+      operationId: 修改加盟商/区域收费规则_基础费用
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              base:
+                type: number
+                j-min: 0
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  base:
+                    type: number
+          description: 请求成功
+      summary: 修改加盟商/区域收费规则_基础费用
+  '/rule/{regionId}/charge/distance':
+    parameters:
+      - name: regionId
+        type: integer
+        in: path
+        description: '区域Id, 为空则获取通用规则'
+        j-required: true
+    post:
+      operationId: 加盟商修改通用/区域收费规则_里程阶梯收费
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentRuleByDistance'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/PaymentRuleByDistance'
+          description: 请求成功
+      summary: 加盟商修改通用/区域收费规则_里程阶梯收费
+  '/rule/{regionId}/charge/time':
+    parameters:
+      - name: regionId
+        type: integer
+        in: path
+        description: '区域Id, 为空则获取通用规则'
+        j-required: true
+    post:
+      operationId: 加盟商修改通用/区域收费规则_时段收费
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentRuleByTime'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/PaymentRuleByTime'
+          description: 请求成功
+      summary: 加盟商修改通用/区域收费规则_时段收费
+  '/rule/{regionId}/charge':
+    get:
+      parameters:
+        - name: regionId
+          type: integer
+          in: path
+          description: '区域Id, 为空则获取通用规则'
+      operationId: 加盟商获取通用/区域收费规则
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/PaymentRule'
+          description: 请求成功
+      summary: 加盟商获取通用/区域收费规则
+    delete:
+      parameters:
+        - name: regionId
+          type: integer
+          in: path
+          description: '区域Id, 为空则获取通用规则'
+          j-required: true
+      operationId: 加盟商区域收费规则恢复至通用设置
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/PaymentRule'
+          description: 请求成功
+      summary: 加盟商区域收费规则恢复至通用设置
+  '/rule/{regionId}/evaluation':
+    get:
+      parameters:
+        - name: regionId
+          type: integer
+          in: path
+          description: '区域Id, 为空则获取通用规则'
+      operationId: 加盟商获取通用/区域考核规则
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/EvaluationRule'
+          description: 请求成功
+      summary: 加盟商获取通用/区域考核规则
+    post:
+      operationId: 加盟商修改通用/区域考核规则
+      parameters:
+        - name: regionId
+          type: integer
+          in: path
+          description: '区域Id, 为空则获取通用规则'
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/EvaluationRule'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/EvaluationRule'
+          description: 请求成功
+      summary: 加盟商修改通用/区域考核规则
+    delete:
+      parameters:
+        - name: regionId
+          type: integer
+          in: path
+          description: '区域Id, 为空则获取通用规则'
+          j-required: true
+      operationId: 加盟商区域考核规则恢复至通用设置
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/EvaluationRule'
+          description: 请求成功
+      summary: 加盟商区域考核规则恢复至通用设置
+  '/rule/{regionId}/payment/base':
+    parameters:
+      - name: regionId
+        type: integer
+        in: path
+        description: '区域Id, 为空则获取通用规则'
+        j-required: true
+    post:
+      operationId: 修改加盟商/区域付费规则_基础费用
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              base:
+                type: number
+                j-min: 0
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  base:
+                    type: number
+          description: 请求成功
+      summary: 修改加盟商/区域付费规则_基础费用
+  '/rule/{regionId}/payment/distance':
+    parameters:
+      - name: regionId
+        type: integer
+        in: path
+        description: '区域Id, 为空则获取通用规则'
+        j-required: true
+    post:
+      operationId: 加盟商修改通用/区域付费规则_里程阶梯付费
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentRuleByDistance'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/PaymentRuleByDistance'
+          description: 请求成功
+      summary: 加盟商修改通用/区域付费规则_里程阶梯付费
+  '/rule/{regionId}/payment/time':
+    parameters:
+      - name: regionId
+        type: integer
+        in: path
+        description: '区域Id, 为空则获取通用规则'
+        j-required: true
+    post:
+      operationId: 加盟商修改通用/区域付费规则_时段付费
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentRuleByTime'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/PaymentRuleByTime'
+          description: 请求成功
+      summary: 加盟商修改通用/区域付费规则_时段付费
+  '/rule/{regionId}/payment':
+    get:
+      parameters:
+        - name: regionId
+          type: integer
+          in: path
+          description: '区域Id, 为空则获取通用规则'
+      operationId: 加盟商获取通用/区域付费规则
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/PaymentRule'
+          description: 请求成功
+      summary: 加盟商获取通用/区域付费规则
+    delete:
+      parameters:
+        - name: regionId
+          type: integer
+          in: path
+          description: '区域Id, 为空则获取通用规则'
+          j-required: true
+      operationId: 加盟商区域付费规则恢复至通用设置
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/PaymentRule'
+          description: 请求成功
+      summary: 加盟商区域付费规则恢复至通用设置
+  '/shop/{id}/balance':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 商家Id
+        requried: true
+        j-requried: true
+    put:
+      operationId: 调整商家余额
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              value:
+                type: number
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Shop'
+          description: 请求成功
+      summary: 调整商家余额
+  '/shop/{id}/disable':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 商家Id
+        requried: true
+        j-requried: true
+    post:
+      operationId: 禁用商家
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Shop'
+          description: 请求成功
+      summary: 禁用商家
+  '/shop/{id}/enable':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 商家Id
+        requried: true
+        j-requried: true
+    post:
+      operationId: 启用商家
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Shop'
+          description: 请求成功
+      summary: 启用商家
+  '/shop/{id}':
+    parameters:
+      - name: id
+        type: integer
+        in: path
+        description: 商家Id
+        requried: true
+        j-requried: true
+    get:
+      operationId: 获取商家详情
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Shop'
+          description: 请求成功
+      summary: 获取商家详情
+    put:
+      operationId: 修改商家
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Shop'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/Shop'
+          description: 请求成功
+      summary: 修改商家
+    delete:
+      operationId: 删除商家
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: boolean
+          description: 请求成功
+      summary: 删除商家
+  /shop:
+    parameters:
+      - $ref: '#/parameters/cityId'
+      - $ref: '#/parameters/regionId'
+      - name: id
+        in: query
+        description: 角色id
+        type: string
+      - name: name
+        in: query
+        description: 角色名称
+        type: string
+      - name: description
+        in: query
+        description: 描述
+        type: string
+      - $ref: '#/parameters/paginator.size'
+      - $ref: '#/parameters/paginator.page'
+    get:
+      operationId: 获取角色
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              paging:
+                $ref: '#/definitions/Paginator'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Role'
+          description: 请求成功
+      summary: 获取角色
+  '/subaccount/{id}':
+    parameters:
+      - in: path
+        name: id
+        type: integer
+        description: '账号id, body中的id会被忽略'
+        requried: true
+        j-required: true
+    delete:
+      operationId: 加盟商删除子账号
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                type: boolean
+          description: 请求成功
+      summary: 加盟商删除子账号
+    put:
+      operationId: 加盟商修改子账号
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/SubAccount'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/SubAccount'
+          description: 请求成功
+      summary: 加盟商修改子账号
+  /subaccount:
+    get:
+      parameters:
+        - $ref: '#/parameters/regionId'
+        - $ref: '#/parameters/account.name'
+        - $ref: '#/parameters/account.phone'
+        - $ref: '#/parameters/account.role'
+        - $ref: '#/parameters/paginator.size'
+        - $ref: '#/parameters/paginator.page'
+      operationId: 加盟商获取子账号
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              paging:
+                $ref: '#/definitions/Paginator'
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/SubAccount'
+          description: 请求成功
+      summary: 加盟商获取子账号
+    post:
+      operationId: 加盟商新增子账号
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/SubAccount'
+          required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/SubAccount'
+          description: 请求成功
+      summary: 加盟商新增子账号
+definitions:
+  Charge:
+    type: object
+    properties:
+      rider:
+        type: object
+        properties:
+          base:
+            type: number
+          distance:
+            type: number
+          time:
+            type: number
+      shop:
+        type: object
+        properties:
+          base:
+            type: number
+          distance:
+            type: number
+          time:
+            type: number
+  Complain:
+    type: object
+    properties:
+      id:
+        type: integer
+      order:
+        $ref: '#/definitions/Order'
+      shop:
+        $ref: '#/definitions/Shop'
+      rider:
+        $ref: '#/definitions/Rider'
+      comment:
+        type: string
+      createdAt:
+        type: integer
+      reason:
+        type: string
+      status:
+        type: integer
+        enum:
+          - 0
+          - 1
+          - 2
+      result:
+        type: string
+  DispatchRule:
+    type: object
+    properties:
+      dispatch:
+        description: 智能派单
+        type: object
+        properties:
+          enabled:
+            type: boolean
+          value:
+            description: 降价金额
+            type: number
+          throttle:
+            description: '调节值(低, 中, 高)'
+            type: integer
+            enum:
+              - 0
+              - 1
+              - 2
+      merge:
+        description: 智能合单
+        type: object
+        properties:
+          enabled:
+            type: boolean
+          value:
+            description: 降价金额
+            type: number
+          throttle:
+            description: '调节值(低, 中, 高)'
+            type: integer
+            enum:
+              - 0
+              - 1
+              - 2
+      riderPick:
+        description: 抢单
+        type: object
+        properties:
+          enabled:
+            type: boolean
+  EvaluationRule:
+    type: object
+    properties:
+      rider:
+        description: 骑手考核规则
+        type: object
+        properties:
+          arrive:
+            description: 基础到店时间
+            type: number
+          finish:
+            description: 基础送达时间
+            type: number
+          arriveTimeoutPenalty:
+            description: '''到店时间''大于''基础到店时间''的扣罚金额'
+            type: number
+          finishTimeoutPenalty:
+            description: '''送达时间''大于''基础送达时间''的扣罚金额'
+            type: number
+          cancel:
+            description: 取消订单相关规则
+            type: object
+            properties:
+              allow:
+                description: 是否允许骑手取消订单
+                type: boolean
+              time:
+                description: 取消订单'T'值
+                type: number
+              intimePenalty:
+                description: '''T''值(分钟)以内, 取消, 扣除金额值'
+                type: number
+              timeoutPenalty:
+                description: '''T''值(分钟)之后, 取消, 扣除金额值'
+                type: number
+      shop:
+        description: 商家取消订单相关考核规则
+        type: object
+        properties:
+          cancelDispatchedPenalty:
+            description: '已接单, 未超出基础到店时间, 扣罚金额'
+            type: number
+          cancelDispatchedTimeoutPenalty:
+            description: '已接单, 超出基础到店时间, 扣罚金额'
+            type: number
+          cancelArrivedPenalty:
+            description: '已到店, 扣罚金额'
+            type: number
+      timer:
+        description: 系统超时提醒
+        type: object
+        properties:
+          pendingNotification:
+            description: '超出x(分钟)没有接单, 标志为滞留单, 同时人工调度系统中提醒'
+            type: number
+          pendingCancellation:
+            description: '超出x(分钟)没有接单, 则系统取消订单'
+            type: number
+          arrivingNotification:
+            description: '超出x(分钟)未到店, 标志为滞留单, 同时人工调度系统中提醒'
+            type: number
+          arrivingCancellation:
+            description: '超出x(分钟)未到店, 则系统取消订单'
+            type: number
+          leavingNotification:
+            description: '超出x(分钟)未离店, 标志为滞留单, 同时人工调度系统中提醒'
+            type: number
+          leavingCancellation:
+            description: '超出x(分钟)未离店, 则系统取消订单'
+            type: number
+          finishingNotification:
+            description: '超出x(分钟)未送达, 标志为滞留单, 同时人工调度系统中提醒'
+            type: number
+          finishingCancellation:
+            description: '超出x(分钟)未送达, 则系统取消订单'
+            type: number
+  Franchisee:
+    type: object
+    properties:
+      id:
+        type: number
+      phone:
+        type: string
+      name:
+        type: string
+      identityNumber:
+        description: 身份证号
+        type: string
+      email:
+        type: string
+      companyName:
+        type: string
+      address:
+        type: string
+      account:
+        type: object
+        properties:
+          number:
+            type: string
+          name:
+            type: string
+          bank:
+            type: string
+      signedDate:
+        type: number
+      effectiveDate:
+        type: number
+      region:
+        type: array
+        items:
+          type: string
+  LoginCredential:
+    type: object
+    properties:
+      name:
+        type: string
+  Order:
+    type: object
+    properties:
+      id:
+        type: integer
+      shop:
+        $ref: '#/definitions/Shop'
+      rider:
+        $ref: '#/definitions/Rider'
+      shipping:
+        $ref: '#/definitions/Shipping'
+      charge:
+        $ref: '#/definitions/Charge'
+      info:
+        $ref: '#/definitions/OrderInfo'
+  OrderInfo:
+    type: object
+    properties:
+      comment:
+        description: 订单备注
+        type: string
+      source:
+        description: 订单来源
+        type: integer
+      cancelSource:
+        description: 取消订单来源
+        type: integer
+      channelId:
+        description: 渠道流水号
+        type: string
+      placeTime:
+        description: 下单时间
+        type: integer
+      finishTime:
+        description: 完成时间
+        type: integer
+      dispatchMode:
+        type: integer
+        description: 抢单模式
+        enum:
+          - 1
+          - 2
+  Paginator:
+    type: object
+    properties:
+      page:
+        type: integer
+      size:
+        type: integer
+      total:
+        type: integer
+  PaymentRule:
+    type: object
+    properties:
+      base:
+        description: 基础收费
+        type: number
+      distance:
+        description: 里程阶梯收费
+        type: array
+        items:
+          $ref: '#/definitions/PaymentRuleByDistance'
+      time:
+        description: 时间阶梯收费
+        type: array
+        items:
+          $ref: '#/definitions/PaymentRuleByTime'
+  PaymentRuleByDistance:
+    type: object
+    properties:
+      startDistance:
+        description: 距离范围(米)开始值
+        type: number
+      endDistance:
+        description: 距离范围(米)结束值
+        type: number
+      pricePerUnit:
+        description: 单位里程费(元/里程刻度)
+        type: number
+      unit:
+        description: 里程刻度(米)
+        type: number
+  PaymentRuleByTime:
+    type: object
+    properties:
+      startTime:
+        description: '时段范围(''00:00'')开始'
+        type: string
+      endTime:
+        description: '时段范围(''00:00'')结束'
+        type: string
+      price:
+        description: 时段金额
+        type: number
+      tag:
+        description: '时段标签(宵夜, 午高峰, 晚高峰)'
+        type: integer
+        enum:
+          - 0
+          - 1
+          - 2
+      day:
+        description: 适用日期(星期几)
+        type: array
+        items:
+          type: integer
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+  RegionData:
+    type: object
+    properties:
+      id:
+        type: integer
+  Rider:
+    type: object
+    properties:
+      id:
+        type: integer
+      regionId:
+        type: integer
+      position:
+        description: 全职/兼职
+        type: integer
+        enum:
+          - 0
+          - 1
+      workStatus:
+        description: '工作状态, 工作中/休息中'
+        type: integer
+        enum:
+          - 0
+          - 1
+      accountStatus:
+        description: '账号状态, 正常/禁用'
+        type: integer
+        enum:
+          - 0
+          - 1
+      name:
+        type: string
+      phone:
+        type: string
+      idNumber:
+        description: 身份证号
+        type: string
+  Role:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+      members:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            id:
+              type: string
+  Shipping:
+    type: object
+    properties:
+      id:
+        type: integer
+  Shop:
+    type: object
+    properties:
+      id:
+        type: integer
+      regionId:
+        type: integer
+      name:
+        type: string
+      address:
+        type: string
+      geo:
+        description: 地理位置
+        type: object
+        properties:
+          lat:
+            type: number
+          lng:
+            type: number
+      account:
+        type: object
+        properties:
+          phone:
+            description: 注册手机号
+            type: string
+          registerTime:
+            description: 注册时间
+            type: integer
+      audit:
+        type: object
+        properties:
+          time:
+            description: 审核时间
+            type: integer
+          status:
+            description: 审核状态
+            type: integer
+          pid:
+            description: 身份证
+            type: object
+            properties:
+              number:
+                description: 身份证号
+                type: string
+              image:
+                description: 身份证片
+                type: object
+                properties:
+                  front:
+                    description: 正面照
+                    type: string
+                  back:
+                    description: 反面照
+                    type: string
+                  hand:
+                    description: 手持照
+                    type: string
+      balance:
+        description: 账户余额
+        type: number
+  SubAccount:
+    type: object
+    properties:
+      id:
+        type: integer
+        m-min: 0
+        m-max: 999
+      regionId:
+        description: 区域Id
+        type: integer
+        m-min: 0
+        m-max: 999
+      name:
+        type: string
+      phone:
+        type: string
+        m-pool: 0123456789
+        m-length: 11
+      role:
+        description: '角色, 暂时只有站长'
+        type: integer
+        enum:
+          - 0
+      idNumber:
+        description: 身份证号
+        type: string
+      email:
+        type: string

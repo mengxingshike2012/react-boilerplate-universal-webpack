@@ -1,0 +1,17 @@
+get:
+    operationId: 验证码
+    parameter:
+        -   in: query
+            name: phone
+            type: string
+            requried: true
+            j-required: true
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: boolean
+                    
+                        

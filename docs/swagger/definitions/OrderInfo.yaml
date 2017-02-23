@@ -1,0 +1,26 @@
+type: object
+properties:
+    comment:
+        description: 订单备注
+        type: string
+    source:
+        description: 订单来源
+        type: integer 
+    cancelSource:
+        description: 取消订单来源
+        type: integer
+    channelId:
+        description: 渠道流水号
+        type: string
+    placeTime:
+        description: 下单时间
+        type: integer
+    finishTime:
+        description: 完成时间
+        type: integer
+    dispatchMode:
+        type: integer
+        description: 抢单模式
+        enum:
+            - 1
+            - 2

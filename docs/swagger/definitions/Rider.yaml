@@ -1,0 +1,31 @@
+type: object
+properties:
+    id:
+        type: integer
+    regionId:
+        type: integer
+    position:
+        description: 全职/兼职
+        type: integer
+        enum:
+            - 0
+            - 1
+    workStatus:
+        description: 工作状态, 工作中/休息中
+        type: integer
+        enum:
+            - 0
+            - 1
+    accountStatus:
+        description: 账号状态, 正常/禁用
+        type: integer
+        enum:
+            - 0
+            - 1
+    name:
+        type: string
+    phone:
+        type: string
+    idNumber:
+        description: 身份证号
+        type: string

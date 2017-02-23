@@ -1,0 +1,22 @@
+type: object
+properties:
+    rider:
+        type: object
+        properties:
+            base:
+                type: number
+            distance:
+                type: number
+            time:
+                type: number
+    shop:
+        type: object
+        properties:
+            base:
+                type: number
+            distance:
+                type: number
+            time:
+                type: number
+
+

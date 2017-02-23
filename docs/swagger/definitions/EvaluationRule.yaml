@@ -1,0 +1,75 @@
+type: object
+properties:
+    rider:
+        description: 骑手考核规则
+        type: object
+        properties:
+            arrive:
+                description: 基础到店时间
+                type: number 
+            finish:
+                description: 基础送达时间
+                type: number 
+            arriveTimeoutPenalty:
+                description: "'到店时间'大于'基础到店时间'的扣罚金额"
+                type: number
+            finishTimeoutPenalty:
+                description: "'送达时间'大于'基础送达时间'的扣罚金额"
+                type: number
+            cancel:
+                description: 取消订单相关规则
+                type: object
+                properties:
+                    allow:
+                        description: 是否允许骑手取消订单
+                        type: boolean
+                    time:
+                        description: "取消订单'T'值" 
+                        type: number
+                    intimePenalty:
+                        description: "'T'值(分钟)以内, 取消, 扣除金额值"
+                        type: number
+                    timeoutPenalty:
+                        description: "'T'值(分钟)之后, 取消, 扣除金额值"
+                        type: number
+    shop:
+        description: 商家取消订单相关考核规则 
+        type: object
+        properties:
+            cancelDispatchedPenalty:
+                description: 已接单, 未超出基础到店时间, 扣罚金额
+                type: number
+            cancelDispatchedTimeoutPenalty:
+                description: 已接单, 超出基础到店时间, 扣罚金额
+                type: number
+            cancelArrivedPenalty:
+                description: 已到店, 扣罚金额
+                type: number
+    timer:
+        description: 系统超时提醒
+        type: object
+        properties:
+            pendingNotification:
+                description: 超出x(分钟)没有接单, 标志为滞留单, 同时人工调度系统中提醒
+                type: number
+            pendingCancellation:
+                description: 超出x(分钟)没有接单, 则系统取消订单
+                type: number
+            arrivingNotification:
+                description: 超出x(分钟)未到店, 标志为滞留单, 同时人工调度系统中提醒
+                type: number
+            arrivingCancellation:
+                description: 超出x(分钟)未到店, 则系统取消订单
+                type: number
+            leavingNotification:
+                description: 超出x(分钟)未离店, 标志为滞留单, 同时人工调度系统中提醒
+                type: number
+            leavingCancellation:
+                description: 超出x(分钟)未离店, 则系统取消订单
+                type: number
+            finishingNotification:
+                description: 超出x(分钟)未送达, 标志为滞留单, 同时人工调度系统中提醒
+                type: number
+            finishingCancellation:
+                description: 超出x(分钟)未送达, 则系统取消订单
+                type: number

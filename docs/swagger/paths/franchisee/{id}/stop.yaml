@@ -1,0 +1,15 @@
+parameters:
+    -   name: id
+        description: 加盟商id
+        in: path
+        required: true
+        j-required: true
+post:
+    operationId: 停止加盟商
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Franchisee'

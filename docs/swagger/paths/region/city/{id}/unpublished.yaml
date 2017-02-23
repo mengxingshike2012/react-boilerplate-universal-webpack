@@ -1,0 +1,39 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        description: 城市Id 
+        required: true
+        j-required: true
+get:
+    operationId: 获取城市来发布数据
+    responses:
+        200:
+            schema:
+                type: array
+                items:
+                    $ref: '#/definitions/RegionData'
+delete:
+    operationId: 删除城市待发布数据
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: boolean
+post:
+    operationId: 更新城市未发布地图数据
+    parameters:
+        -   name: body
+            in: body
+            schema:
+                type: array
+                items:
+                    $ref: '#/definitions/RegionData'
+    responses:
+        200:
+            schema:
+                type: array
+                items:
+                    $ref: '#/definitions/RegionData'

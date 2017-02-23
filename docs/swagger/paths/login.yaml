@@ -1,0 +1,23 @@
+post:
+    operationId: 登陆 
+    parameters:
+        -   in: body
+            name: body
+            schema:
+                type: object
+                properties:
+                    username:
+                        type: string
+                        j-required: true
+                    password:
+                        type: string
+                        j-required: true
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: string
+                        m-type: hex
+                        m-length: 32

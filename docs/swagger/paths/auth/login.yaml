@@ -1,0 +1,21 @@
+post:
+    operationId: 登陆
+    parameters:
+        -   in: body
+            name: body
+            schema:
+                type: object
+                properties:
+                    phone:
+                        type: string
+                    password:
+                        type: string
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/LoginCredential'
+                    
+                        

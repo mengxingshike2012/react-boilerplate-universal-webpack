@@ -32,8 +32,8 @@ module.exports = {
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, use: [strip.loader('debug'), 'babel-loader'] },
       { test: /\.css$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader', use:['css-loader', 'postcss-loader']})},
-      { test: /\.less$/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader?modules&importLoaders=2&sourceMap', 'postcss-loader', 'less-loader??outputStyle=expanded&sourceMap=true&sourceMapContents=true'] }) },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader?modules&importLoaders=2&sourceMap', 'postcss-loader', 'sass-loader??outputStyle=expanded&sourceMap=true&sourceMapContents=true'] }) },
+      { test: /\.less$/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader?modules&importLoaders=2&sourceMap', 'postcss-loader', 'less-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'] }) },
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader?modules&importLoaders=2&sourceMap', 'postcss-loader', 'sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'] }) },
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
@@ -51,7 +51,7 @@ module.exports = {
     alias: {
       components: `${path.resolve(__dirname, '..')}/src/common/components`,
       actions: `${path.resolve(__dirname, '..')}/src/common/actions`,
-      api: `${path.resolve(__dirname, '..')}/src/common/api`,
+      apis: `${path.resolve(__dirname, '..')}/src/common/apis`,
       reducers: `${path.resolve(__dirname, '..')}/src/common/reducers`,
       utils: `${path.resolve(__dirname, '..')}/src/common/utils`,
       constants: `${path.resolve(__dirname, '..')}/src/common/constants`,

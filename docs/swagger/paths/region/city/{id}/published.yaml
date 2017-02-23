@@ -1,0 +1,15 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        description: 城市Id 
+        required: true
+        j-required: true
+get:
+    operationId: 获取已发布数据
+    responses:
+        200:
+            schema:
+                type: array
+                items:
+                    $ref: '#/definitions/RegionData'

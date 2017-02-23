@@ -1,0 +1,27 @@
+parameters:
+  - name: regionId 
+    type: integer
+    in: path
+    description: 区域Id, 为空则获取通用规则
+    j-required: true
+
+post:
+    operationId: 加盟商修改通用/区域付费规则_时段付费
+    parameters:
+      - name: body
+        in: body
+        schema:
+            type: array
+            items:
+                $ref: '#/definitions/PaymentRuleByTime'
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: array
+                        items:
+                            $ref: '#/definitions/PaymentRuleByTime'
+
+

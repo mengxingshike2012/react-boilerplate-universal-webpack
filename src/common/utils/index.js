@@ -146,7 +146,7 @@ Date.prototype.format = function (fmt) { // author: meizz
 };
 
 // 这个算法以东北半球为标准
-exports.circle2dodecagon = function (circle) {
+export const circle2dodecagon = (circle) => {
   const sin = Math.sin
   const cos = Math.cos
   const PI = Math.PI;

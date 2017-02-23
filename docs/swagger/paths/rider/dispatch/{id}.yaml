@@ -1,0 +1,23 @@
+post:
+    operationId: 禁用骑手
+    parameters:
+        -   name: id 
+            type: integer
+            in: path
+            description: 骑手Id 
+            required: true
+            j-required: true
+        -   name: body
+            in: body
+            schema:
+                type: array
+                items:
+                    type: integer
+                    description: 订单id
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Rider'

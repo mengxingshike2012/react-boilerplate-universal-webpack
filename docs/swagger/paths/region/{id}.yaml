@@ -1,0 +1,24 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        description: 区域Id 
+        required: true
+        j-required: true
+get:
+    operationId: 获取区域地图数据
+    responses:
+        200:
+            schema:
+                $ref: '#/definitions/RegionData'
+post:
+    operationId: 更新区域地图数据
+    parameters:
+        -   name: body
+            in: body
+            schema:
+                $ref: '#/definitions/RegionData'
+    responses:
+        200:
+            schema:
+                $ref: '#/definitions/RegionData'

@@ -1,0 +1,13 @@
+get:
+    operationId: 获取所有招商城市列表
+    responses:
+        200:
+            schema:
+                type: array
+                items:
+                    type: object
+                    properties:
+                        name:
+                            type: string
+                        id:
+                            type: integer

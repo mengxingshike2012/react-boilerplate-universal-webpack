@@ -1,0 +1,27 @@
+type: object
+properties:
+    id:
+        type: integer
+        m-min: 0
+        m-max: 999
+    regionId:
+        description: 区域Id
+        type: integer
+        m-min: 0
+        m-max: 999
+    name:
+        type: string
+    phone:
+        type: string
+        m-pool: '0123456789'
+        m-length: 11
+    role:
+        description: 角色, 暂时只有站长
+        type: integer
+        enum:
+            - 0 #站长
+    idNumber:
+        description: 身份证号
+        type: string
+    email:
+        type: string

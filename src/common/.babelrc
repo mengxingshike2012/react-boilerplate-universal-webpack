@@ -8,11 +8,20 @@
     "transform-class-properties",
     "transform-decorators-legacy",
     "transform-object-rest-spread",
-    ["import", [{ "libraryName": "antd", "style": "css"}]]
+    ["import", [{ "libraryName": "antd", "style": true}]]
   ],
   "env": {
     "development": {
       "plugins": ["react-hot-loader/babel"]
+    },
+    "test": {
+      "presets": ["es2015", "react"],
+      "plugins": [
+        "transform-async-to-generator",
+        "transform-class-properties",
+        "transform-decorators-legacy",
+        "transform-object-rest-spread",
+      ]
     }
   }
 }

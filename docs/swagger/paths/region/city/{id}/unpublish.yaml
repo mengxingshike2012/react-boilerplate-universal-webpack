@@ -1,0 +1,16 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        description: 城市Id 
+        required: true
+        j-required: true
+post:
+    operationId: 取消发布
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: boolean

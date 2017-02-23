@@ -1,0 +1,16 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        description: 商家Id 
+        required: true
+        j-required: true
+post:
+    operationId: 禁用商家
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Shop'

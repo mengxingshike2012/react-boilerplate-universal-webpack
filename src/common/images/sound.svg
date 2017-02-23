@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>28EC52CE-A30F-4A68-B497-DD7E17A70104</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/sound1">
+            <g id="Icons/volume" transform="translate(2.000000, 2.000000)">
+                <g id="Group-2" transform="translate(0.000000, 2.100000)">
+                    <path d="M12,3.15 C12,3.15 14.4846191,4.77524414 14.4846191,8.4 C14.4846191,12.0247559 12,13.65 12,13.65" id="Path-2" stroke="#929292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M15,0 C15,0 19.0009766,2.60039063 19.0009766,8.4 C19.0009766,14.1996094 15,16.8 15,16.8" id="Path-2" stroke="#929292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M8.41061476,1.64339399 L4.51900017,4.4710654 L3.0483871,5.54641086 L0.296782638,5.54641086 C0.129771154,5.55505011 5.24025268e-14,5.71919568 5.24025268e-14,5.92101793 L5.24025268e-14,10.8789821 C5.24025268e-14,11.0810443 0.129771154,11.2447099 0.289752576,11.2447099 C0.292222598,11.2447099 3.0483871,11.2535891 3.0483871,11.2535891 L5.23796656,12.8501688 L8.38211451,15.1357278 C8.44595508,15.191403 8.52309576,15.225 8.6065065,15.225 C8.82367843,15.225 9,15.0025396 9,14.7282437 C9,14.7088054 8.99714997,14.6910469 8.99543996,14.6723286 L9,2.01584124 C8.97320976,1.768423 8.8086683,1.575 8.6065065,1.575 C8.53468586,1.575 8.46837527,1.60091772 8.41061476,1.64339399 Z" id="Shape" fill="#929292"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

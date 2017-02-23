@@ -1,0 +1,39 @@
+parameters:
+    -   name: id 
+        type: integer
+        in: path
+        description: 商家Id 
+        required: true
+        j-required: true
+get:
+    operationId: 获取商家详情
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Shop'
+put:
+    operationId: 修改商家
+    parameters:
+        -   in: body
+            name: body
+            schema:
+                $ref: '#/definitions/Shop'
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        $ref: '#/definitions/Shop'
+delete:
+    operationId: 删除商家
+    responses:
+        200:
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: boolean
